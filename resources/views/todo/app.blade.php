@@ -80,47 +80,50 @@
                                     Cari
                                 </button>
                             </div>
-                        </form>
-                        
+                        </form>              
                         <ul class="list-group mb-4" id="todo-list">
                             <!-- 04. Display Data -->
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="task-text">Coding</span>
-                                <input type="text" class="form-control edit-input" style="display: none;"
-                                    value="Coding">
-                                <div class="btn-group">
-                                    <button class="btn btn-danger btn-sm delete-btn">✕</button>
-                                    <button class="btn btn-primary btn-sm edit-btn" data-bs-toggle="collapse"
-                                        data-bs-target="#collapse-1" aria-expanded="false">✎</button>
-                                </div>
-                            </li>
-                            <!-- 05. Update Data -->
-                            <li class="list-group-item collapse" id="collapse-1">
-                                <form action="" method="POST">
-                                    <div>
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="task"
-                                                value="Coding">
-                                            <button class="btn btn-outline-primary" type="button">Update</button>
-                                        </div>
+                            @foreach ($data as $todo)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="task-text">{{ $todo->task }}</span>
+                                    <input type="text" class="form-control edit-input" style="display: none;"
+                                        value="{{ $todo->task }}">
+                                    <div class="btn-group">
+                                        <button class="btn btn-danger btn-sm delete-btn">✕</button>
+                                        <button class="btn btn-primary btn-sm edit-btn" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse-{{ $loop->index }}" aria-expanded="false">✎</button>
                                     </div>
-                                    <div class="d-flex">
-                                        <div class="radio px-2">
-                                            <label>
-                                                <input type="radio" value="1" name="is_done"> Selesai
-                                            </label>
+                                </li>
+                                <!-- 05. Update Data -->
+                                <li class="list-group-item collapse" id="collapse-{{ $loop->index }}">
+                                    <form action="{{ route('todos.update', ['id'=>$todo->id]) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" name="task"
+                                                    value="{{ $todo->task }}">
+                                                <button class="btn btn-outline-primary" type="submit">Update</button>
+                                            </div>
                                         </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" value="0" name="is_done"> Belum
-                                            </label>
+                                        <div class="d-flex">
+                                            <div class="radio px-2">
+                                                <label>
+                                                    <input type="radio" value="1" name="is_done" {{ $todo->is_done == '1' ? 'checked' : '' }}> Selesai
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" value="0" name="is_done" {{ $todo->is_done == '0' ? 'checked' : '' }}> Belum
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </li>
+                                    </form>
+                                </li>
+                            @endforeach
+
+
                         </ul>
-                        
-                        
                     </div>
                 </div>
             </div>
