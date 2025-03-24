@@ -40,12 +40,28 @@
             <div class="col-md-8">
              <div class="card mb-3">
                 <div class="card-body">
+                    {{-- Success Indicator --}}
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    {{-- Validator --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <!-- 02. Form input data -->
-                    <form id="todo-form" action="{{ url('/todos') }}" method="post">
+                    <form id="todo-form" action="{{ route('todos.store') }}" method="post">
                         @csrf
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" name="task" id="todo-input"
-                                placeholder="Tambah task baru" required>
+                                placeholder="Tambah task baru" required value="{{ old('task') }}">
                             <button class="btn btn-primary" type="submit">
                                 Simpan
                             </button>

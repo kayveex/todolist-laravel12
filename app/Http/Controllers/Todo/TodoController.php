@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Todo;
 
 use App\Http\Controllers\Controller;
+use App\Models\Todos;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -30,9 +31,22 @@ class TodoController extends Controller
     {
         $request->validate([
             'task' => 'required|string|max:128|min:3'
+        ], [
+            'task.required' => 'Task tidak boleh kosong',
+            'task.min' => 'Task minimal 3 karakter',
+            'task.max' => 'Task maksimal 128 karakter' 
         ]);
-        
-        dd($request);
+
+        // Create new todo
+        $data = [
+            'task' => $request->input('task'),
+        ];
+
+        // Save to database
+        Todos::create($data);
+        return redirect()->route('todos')->with('success', 'Task berhasil ditambahkan');
+
+    
     }
 
     /**

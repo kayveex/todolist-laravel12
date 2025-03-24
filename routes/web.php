@@ -8,5 +8,5 @@ Route::get('/', function () {
 });
 
 
-Route::get('/todos', [TodoController::class, 'index']);
-Route::post('/todos', [TodoController::class, 'store']);
+Route::get('/todos', [TodoController::class, 'index'])->name('todos');
+Route::post('/todos', [TodoController::class, 'store'])->name('todos.store');
