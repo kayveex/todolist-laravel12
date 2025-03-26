@@ -13,6 +13,11 @@ class TodoController extends Controller
      */
     public function index()
     {
+        if (request('search')) {
+            $data = Todos::where('task', 'like', '%' . request('search') . '%')->get();
+            return view('todo.app', compact('data'));
+        }
+        
         $data = Todos::orderBy('task', 'asc')->get();
         return view('todo.app', compact('data'));
     }
@@ -93,6 +98,7 @@ class TodoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Todos::where('id', $id)->delete();
+        return redirect()->route('todos')->with('success', 'Task berhasil dihapus');
     }
 }
