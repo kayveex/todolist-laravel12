@@ -130,9 +130,9 @@
                                     </form>
                                 </li>
                             @endforeach
-
-
                         </ul>
+                        {{-- Pagination --}}
+                        {{ $data->links() }}
                     </div>
                 </div>
             </div>
