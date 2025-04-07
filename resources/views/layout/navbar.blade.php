@@ -15,7 +15,7 @@
                                 Logout
                             </a>
                         </li>
-                        <li><a class="dropdown-item" href="#">Update Data</a></li>
+                        <li><a class="dropdown-item" href="/user/update">Update Data</a></li>
                     </ul>
                 </li>
             </ul>

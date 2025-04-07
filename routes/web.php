@@ -13,6 +13,9 @@ Route::middleware('auth')->group(function() {
     Route::post('/todos', [TodoController::class, 'store'])->name('todos.store');
     Route::put('/todos/{id}', [TodoController::class, 'update'])->name('todos.update');
     Route::delete('/todos/{id}', [TodoController::class, 'destroy'])->name('todos.delete');
+
+    Route::get('/user/update', [UserController::class, 'updateData'])->name('user.update');
+    Route::post('/user/update', [UserController::class, 'doUpdateData'])->name('user.doUpdate');
 });
 
 
