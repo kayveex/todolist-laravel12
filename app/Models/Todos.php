@@ -8,5 +8,5 @@ class Todos extends Model
 {
     protected $table = 'todos';
     protected $primaryKey = 'id';
-    protected $fillable = ['task', 'is_done'];
+    protected $fillable = ['task', 'is_done', 'user_id'];
 }

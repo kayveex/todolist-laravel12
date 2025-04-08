@@ -5,6 +5,11 @@
     Update Data
 @endsection
 
+{{-- Navbar --}}
+@section('navbar')
+    @include('layout.navbar')
+@endsection
+
 @section('content')
     <div class="row justify-content-center mt-5">
         <div class="col-md-6">

@@ -17,9 +17,9 @@ class TodoController extends Controller
     {
         $max_data = 5;
         if (request('search')) {
-            $data = Todos::where('task', 'like', '%' . request('search') . '%')->paginate($max_data)->withQueryString();
+            $data = Todos::where('task', 'like', '%' . request('search') . '%')->where('user_id', Auth::user()->id)->orderBy('task','asc')->paginate($max_data)->withQueryString();
         }else {
-            $data = Todos::orderBy('task', 'asc')->paginate($max_data);
+            $data = Todos::orderBy('task', 'asc')->where('user_id', Auth::user()->id)->paginate($max_data);
         }
 
         return view('todo.app', compact('data'));
@@ -49,6 +49,7 @@ class TodoController extends Controller
         // Create new todo
         $data = [
             'task' => $request->input('task'),
+            'user_id' => Auth::user()->id,
         ];
 
         // Save to database
@@ -92,7 +93,7 @@ class TodoController extends Controller
             'is_done' => $request->input('is_done')
         ];
 
-        Todos::where('id', $id)->update($data);
+        Todos::where('id', $id)->where('user_id', Auth::user()->id)->update($data);
         return redirect()->route('todos')->with('success', 'Task berhasil diupdate');
     }
 
@@ -101,7 +102,7 @@ class TodoController extends Controller
      */
     public function destroy(string $id)
     {
-        Todos::where('id', $id)->delete();
+        Todos::where('id', $id)->where('user_id', Auth::user()->id)->delete();
         return redirect()->route('todos')->with('success', 'Task berhasil dihapus');
     }
 }

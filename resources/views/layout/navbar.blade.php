@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid col-md-7">
-        <div class="navbar-brand">Taking Notes</div>
+        <div class="navbar-brand">
+            <a href="{{ route('todos') }}" class="text-decoration-none text-white">TakingNotes</a>
+        </div>
         <div class="navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
